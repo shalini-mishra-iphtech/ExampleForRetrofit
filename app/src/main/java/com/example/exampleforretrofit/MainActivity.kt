@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.exampleforretrofit.adapter.UserAdapter
 import com.example.exampleforretrofit.model.user
 import com.example.exampleforretrofit.network.RetrofitClient
 import retrofit2.Response
@@ -14,6 +18,8 @@ import retrofit2.Call
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var recyclerView:RecyclerView
+    private lateinit var userAdapter: UserAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,6 +29,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        recyclerView=findViewById(R.id.recyclerView)
+        recyclerView.layoutManager=LinearLayoutManager(this)
         fetchUsers()
     }
 
@@ -35,6 +43,11 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     // Update your UI with the list of users
                     val users = response.body()
+
+                    if(users!=null){
+                        userAdapter=UserAdapter(users)
+                        recyclerView.adapter=userAdapter
+                    }
                     users?.forEach { user ->
                         Log.d(
                             "USER_DATA",
