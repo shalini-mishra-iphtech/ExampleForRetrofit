@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 } else {
                     Log.e("API_ERROR", "Failed to fetch data")
+                    //code for lese thing
                 }
             }
 
