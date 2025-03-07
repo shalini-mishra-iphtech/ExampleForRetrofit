@@ -10,7 +10,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exampleforretrofit.adapter.UserAdapter
-import com.example.exampleforretrofit.model.user
+import com.example.exampleforretrofit.model.UserData
+
 import com.example.exampleforretrofit.network.RetrofitClient
 import retrofit2.Response
 import retrofit2.Callback
@@ -36,8 +37,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchUsers() {
         val call = RetrofitClient.instance.getUsers()
-        call.enqueue(object : Callback<List<user>> {
-            override fun onResponse(call: Call<List<user>>, response: Response<List<user>>) {
+        call.enqueue(object : Callback<List<UserData>> {
+            override fun onResponse(call: Call<List<UserData>>, response: Response<List<UserData>>) {
 
                //Handle the error scenario here
                 if (response.isSuccessful) {
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<List<user>>, t: Throwable) {
+            override fun onFailure(call: Call<List<UserData>>, t: Throwable) {
                 //Handle the failure
                 Log.e("NETWORK_ERROR", "Error: ${t.message}")
             }

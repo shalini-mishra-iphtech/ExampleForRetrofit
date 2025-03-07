@@ -1,9 +1,7 @@
 package com.example.exampleforretrofit.model
 
-public class user{
-
-  lateinit var name:String
-  lateinit var email:String
-  lateinit var phone:String
-
-}
+data class UserData(
+  val name: String,
+  val email: String,
+  val phone: String
+)
